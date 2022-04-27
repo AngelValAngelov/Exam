@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{% block page_content %}
+    <div class="tm-main-content">
+        <section class="tm-margin-b-l">
+            <header>
+                <h1 class='center-txt'>
+                    {% if vehicles %}
+                        All vehicles
+                    {% else %}
+                        No vehicle yet
+                    {% endif %}
+                </h1>
+
+            </header>
+
+            <div class="tm-gallery">
+                <div class="row">
+                    {% for vehicle in vehicles %}
+                        <figure class="column-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+                            <a href="{% url 'vehicle details' vehicle.pk %}">
+                                <div class="tm-gallery-item-overlay">
+                                    <img src="{{ vehicle.photo.url }}" alt="Image"
+                                         class="img-fluid tm-img-center">
+
+
+                                </div>
+
+
+                                <p>Manufacturer: {{ vehicle.manufacturer }}</p>
+                                <p>Model: {{ vehicle.model }}</p>
+                                {% if vehicle.manufacturer_date %}
+                                    <p>{{ vehicle.age }} years old</p>
+                                {% endif %}
+
+
+                            </a>
+                        </figure>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <nav class="tm-gallery-nav">
+                <ul class="nav justify-center">
+                    <li class="nav-item"><a class="nav-link active" href="#">1</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">2</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">3</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">4</a></li>
+                </ul>
+            </nav>
+        </section>
+
+
+    </div>
+
+{% endblock %}
