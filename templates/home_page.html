@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+<div class="container">
+    <div class="jumbotron">
+{#        <img style="width: 100%"#}
+{#             src="https://activepets.co.za/web/ap-content/uploads/2019/08/Active-pets-dogs-and-cats.png" alt="">#}
+        <div class='center-txt'>
+            <h1 class="display-4" style="font-size:200px">Karuchka</h1>
+            <h1>Buy it nice, or buy it twice</h1>
+            <hr class="my-4">
+            <div class="flex-row">
+
+                <!-- Login Button -->
+                <a href="{%  url 'login user' %}" class="btn btn-lg btn-secondary">Login</a>
+
+                <!-- Register Button -->
+                <a href="{% url 'register' %}" class="btn btn-lg btn-secondary">Register</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

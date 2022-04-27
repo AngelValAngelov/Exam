@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+    <div class="tm-main-content no-pad-b">
+
+        <section class="row tm-item-preview">
+            <div class="col-md-6 col-sm-12 mb-md-0 mb-5">
+                <img src="{{ profile.picture.url }}" width="470" height="470" alt="Image"
+                     class="img-fluid tm-img-center-sm">
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h2 class="tm-blue-text tm-margin-b-p">{{ profile.first_name }} {{ profile.last_name }}</h2>
+                {% if profile.description %}
+                    <h5>Description: {{ profile.description }}</h5>
+                {% endif %}
+                <h5>Email: {{ profile.email }}</h5>
+                <p class="mt-2">Total Vehicles: {{ total_vehicle_images_count }}</p>
+                <p class="mt-2">Total Likes: {{ total_likes_count }}</p>
+                <p class="mt-2">Total Dislikes: {{ total_dislikes_count }}</p>
+                {#                <p class="tm-blue-text tm-margin-b-s">Categories: <a href="#" class="tm-blue-text">New Story</a>, <a#}
+                {#                        href="#" class="tm-blue-text">Epic</a>, <a href="#" class="tm-blue-text">Popular</a></p>#}
+                {#                <p class="tm-blue-text tm-margin-b-s">Views: 10,890</p>#}
+                {#                <p class="tm-blue-text tm-margin-b">Rating: <img src="img/star.png" alt="Star image"> <img#}
+                {#                        src="img/star.png" alt="Star image"> <img src="img/star.png" alt="Star image"> <img#}
+                {#                        src="img/star.png" alt="Star image"></p>#}
+                {#                <a href="#" class="tm-btn tm-btn-gray tm-margin-r-20 tm-margin-b-s">Preview</a><a href="#"#}
+                {#                                                                                                  class="tm-btn tm-btn-blue">Download</a>#}
+                {% if is_owner %}
+                    <a href="{% url 'edit profile' profile.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete profile' %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <div class="tm-gallery no-pad-b">
+            <div class="row">
+                {% for vehicle in vehicles %}
+
+                    <figure class="column-3 col-md-4 col-sm-6 col-12 tm-gallery-item mb-5">
+
+                        {#                        {% for vehicle in vehicles %}#}
+                        {#                            {% if forloop.parentloop.counter ==  forloop.counter %}#}
+                        <a href="{% url 'vehicle details' vehicle.pk %}">
+                            <div class="tm-gallery-item-overlay">
+                                <img src="{{ vehicle.photo.url }}" alt="Image" class="img-fluid tm-img-center">
+                            </div>
+                            <p>Manufacturer: {{ vehicle.manufacturer }}</p>
+                            <p>Model: {{ vehicle.model }}</p>
+                            <p>{{ vehicle.age }} years old</p>
+
+                            {% if is_owner %}
+                                <a href="{% url 'edit vehicle' vehicle.pk %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'delete vehicle' vehicle.pk %}"
+                                   class="btn btn-danger">Delete</a>
+                                {#                                    {% endif %}#}
+
+
+                            {% endif %}
+                    </a>
+
+                        {#                        {% endfor %}#}
+                    </figure>
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{#    <footer>#}
+{#        Copyright &copy; <span>2022</span> Karuchka#}
+{##}
+{#    </footer>#}
+{#</div>#}
+{##}
+{##}
+{#</body>#}
+{#</html>#}

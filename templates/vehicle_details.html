@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+    <div class="container">
+        <div class="d-flex">
+            <div class="d-inline p2 w50">
+                <img src="{{ vehicle.photo.url }}"
+                     class="w-100 rounded mx-auto d-block" alt="{{ vehicle.description|truncatechars:30 }}">
+
+            </div>
+            <div class="d-inline p2 w50">
+
+                <div>
+                    <h5>Manufacturer: {{ vehicle.manufacturer }}</h5>
+                    <h5>Model: {{ vehicle.model }}</h5>
+                    <h5>Age: {{ vehicle.age }}</h5>
+                </div>
+                <p class="mt-2">Description: {{ vehicle.description }}</p>
+
+                {% if not is_owner %}
+                    {##}
+
+
+                    <form action="{% url 'like vehicle' vehicle.id %}" method="POST">
+                        {% if is_liked and is_disliked %}
+                            {#                            <a href="{% url 'like vehicle' vehicle.id %}">#}
+                            {#                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>#}
+                            <a href="{% url 'dislike vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                        {% endif %}
+                        {% if is_liked and is_disliked %}
+                            <a href="{% url 'like vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o--up" aria-hidden="true"></i></a>
+                            <a href="{% url 'dislike vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+                        {% endif %}
+                        {% if is_liked and not is_disliked %}
+                            <a href="{% url 'like vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+                            <a href="{% url 'dislike vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </form>
+
+                    <form action="{% url 'dislike vehicle' vehicle.id %}" method="POST">
+                        {% if is_liked and is_disliked %}
+                            <a href="{% url 'like vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o--up" aria-hidden="true"></i></a>
+                            {#                            <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                            {#                                <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                        {% endif %}
+                        {% if not is_liked and not is_disliked %}
+                            <a href="{% url 'like vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                            <a href="{% url 'dislike vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                        {% endif %}
+                        {% if not is_liked and is_disliked %}
+                            <a href="{% url 'like vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                            <a href="{% url 'dislike vehicle' vehicle.id %}">
+                                <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </form>
+
+                    {#                    {% if is_liked and is_disliked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o--up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                    {#                    {% endif %}#}
+
+                    {#                    {% if not is_liked and is_disliked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                    {#                    {% endif %}#}
+
+
+                    {#                    {% elif is_disliked and not is_liked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>#}
+                    {##}
+                    {#                    {% elif is_disliked and is_liked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                    {#                    {% elif is_disliked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                    {##}
+                    {#                    {% elif not is_disliked and  not is_liked%}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>#}
+                    {##}
+                    {#                    {% elif not is_disliked and is_liked%}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+                    {#                    {% elif not is_disliked %}#}
+                    {#                        <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>#}
+                    {#                        <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>#}
+
+
+                    {#                    <a href="{% url 'like vehicle' vehicle.id %}">#}
+                    {#                        {% if is_liked and is_disliked %}#}
+                    {#                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>#}
+                    {#                        {% elif not is_liked and is_disliked %}#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>#}
+                    {#                        {% elif not is_liked and not is_disliked %}#}
+                    {#                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>#}
+                    {#                        {% else %}#}
+                    {#                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>#}
+                    {#                        {% endif %}#}
+                    {#                    </a>#}
+                    {#                    <a href="{% url 'dislike vehicle' vehicle.id %}">#}
+                    {#                        {% if is_disliked and is_liked %}#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>#}
+                    {#                        {% elif is_disliked and not is_liked %}#}
+                    {#                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>#}
+                    {#                        {% elif not is_disliked and not is_liked %}#}
+                    {#                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>#}
+                    {#                        {% else %}#}
+                    {#                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>#}
+                    {#                        {% endif %}#}
+                    {#                    </a>#}
+
+                    <p class="mt-2">Likes: {{ vehicle.likes_count }}</p>
+                    <p class="mt-2">Dislikes: {{ vehicle.dislikes_count }}</p>
+                    {#                                        <a href="{% url 'dislike vehicle' vehicle.id %}"><i class="fa fa-thumbs-down"#}
+                    {#                                                                                                        aria-hidden="true"></i></a>#}
+                {% else %}
+                    <a href="{% url 'edit vehicle' vehicle.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete vehicle' vehicle.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+                <div class="d-block" style="background-color: darkgrey; padding:10%">
+                    <h1 style="color: lawngreen">COMMENTS</h1>
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="box">
+                                <h3>{{ comment.user }}: <em style="color: green">{{ comment.text }}</em></h3>
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="box">
+                            <h3>There are no comments for this pet. </h3>
+                        </div>
+                    {% endif %}
+                    {% if not is_owner %}
+                        <div class="box">
+                            <form method="post" action="{% url 'comment vehicle' vehicle.id %}">
+                                {% csrf_token %}
+                                {{ comment_form }}
+                                <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+                            </form>
+                        </div>
+                        </div>
+                    {% endif %}
+            </div>
+            {#                <p class="mt-2">Dislikes: {{ vehicle_photo.dislikes }}</p>#}
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
